@@ -1,9 +1,4 @@
 <?php
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Database connection details
 $servername = "localhost";
 $username = "root";
@@ -26,6 +21,9 @@ $error = '';
 $success = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Start output buffering
+    ob_start();
+
     // Collect and sanitize form data
     $recipe_name = sanitize_input($_POST["recipe_name"]);
     $serving_size = sanitize_input($_POST["serving_size"]);
@@ -55,9 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Insert ingredients and measurements
         if (isset($_POST["ingredient_name"]) && is_array($_POST["ingredient_name"])) {
-            $sql_ingredient = "INSERT INTO ingredients (ingredient_name) VALUES (?)";
-            $sql_measurement = "INSERT INTO measurements (recipe_id, ingredient_id, quantity, unit) VALUES (?, ?, ?, ?)";
-            
+            $sql_ingredient = "INSERT INTO ingredients (ingredient_name) 
+                            VALUES (?) 
+                            ON DUPLICATE KEY UPDATE ingredient_id=LAST_INSERT_ID(ingredient_id)";
+            $sql_measurement = "INSERT INTO measurements (recipe_id, ingredient_id, quantity, unit) 
+                                VALUES (?, ?, ?, ?)";
+
             $stmt_ingredient = $conn->prepare($sql_ingredient);
             $stmt_measurement = $conn->prepare($sql_measurement);
 
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (!$stmt_ingredient->execute()) {
                     throw new Exception("Execute failed for ingredient: " . $stmt_ingredient->error);
                 }
-                $ingredient_id = $stmt_ingredient->insert_id;
+                $ingredient_id = $conn->insert_id; // Use the existing ingredient_id
 
                 $stmt_measurement->bind_param("iids", $recipe_id, $ingredient_id, $quantity, $unit);
                 if (!$stmt_measurement->execute()) {
@@ -86,70 +87,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_measurement->close();
         }
 
-        // Insert media links
-        if (isset($_POST["media_link"]) && is_array($_POST["media_link"])) {
-            $sql_media = "INSERT INTO media (recipe_id, media_link) VALUES (?, ?)";
-            $stmt_media = $conn->prepare($sql_media);
-            if (!$stmt_media) {
-                throw new Exception("Prepare failed for media: " . $conn->error);
-            }
 
-            foreach ($_POST["media_link"] as $media_link) {
-                $media_link = sanitize_input($media_link);
-                $stmt_media->bind_param("is", $recipe_id, $media_link);
-                if (!$stmt_media->execute()) {
-                    throw new Exception("Execute failed for media: " . $stmt_media->error);
+        // Insert categories
+        $sql_recipe_category = "INSERT INTO recipe_tag (recipe_id, category_id, vegan, vegetarian, gluten_free) 
+                                VALUES (?, ?, ?, ?, ?)";
+        $stmt_recipe_category = $conn->prepare($sql_recipe_category);
+        if (!$stmt_recipe_category) {
+            throw new Exception("Prepare failed for recipe_category: " . $conn->error);
+        }
+
+        if (isset($_POST["categories"]) && is_array($_POST["categories"])) {
+            foreach ($_POST["categories"] as $category_id) {
+                $category_id = intval(sanitize_input($category_id));
+                $stmt_recipe_category->bind_param("iiiii", $recipe_id, $category_id, $vegan, $vegetarian, $gluten_free);
+                if (!$stmt_recipe_category->execute()) {
+                    throw new Exception("Execute failed for category: " . $stmt_recipe_category->error);
                 }
             }
-
-            $stmt_media->close();
         }
+        $stmt_recipe_category->close();
 
-        // Insert nutrition information
-        $sql_nutrition = "INSERT INTO nutrition (recipe_id, kcal, protein, carbs, fat, sugar) 
-                          VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt_nutrition = $conn->prepare($sql_nutrition);
-        if (!$stmt_nutrition) {
-            throw new Exception("Prepare failed for nutrition: " . $conn->error);
-        }
-        $kcal = intval($_POST["kcal"]);
-        $protein = intval($_POST["protein"]);
-        $carbs = intval($_POST["carbs"]);
-        $fat = intval($_POST["fat"]);
-        $sugar = intval($_POST["sugar"]);
-        $stmt_nutrition->bind_param("iiiiii", $recipe_id, $kcal, $protein, $carbs, $fat, $sugar);
-        if (!$stmt_nutrition->execute()) {
-            throw new Exception("Execute failed for nutrition: " . $stmt_nutrition->error);
-        }
-        $stmt_nutrition->close();
-
-        // Insert categories and tags
-        $sql_recipe_tag = "INSERT INTO recipe_tag (recipe_id, category_id, vegan, vegetarian, gluten_free) 
-                           VALUES (?, ?, ?, ?, ?)";
+        // Insert tags
+        $sql_recipe_tag = "INSERT INTO recipe_tag (recipe_id, tag_id, vegan, vegetarian, gluten_free) 
+                        VALUES (?, ?, ?, ?, ?) 
+                        ON DUPLICATE KEY UPDATE tag_id=VALUES(tag_id)";
         $stmt_recipe_tag = $conn->prepare($sql_recipe_tag);
         if (!$stmt_recipe_tag) {
             throw new Exception("Prepare failed for recipe_tag: " . $conn->error);
         }
 
-        if (isset($_POST["categories"]) && is_array($_POST["categories"])) {
-            foreach ($_POST["categories"] as $category_id) {
-                $category_id = sanitize_input($category_id);
-                $dummy_tag = null;
-                $stmt_recipe_tag->bind_param("iiiii", $recipe_id, $category_id, $vegan, $vegetarian, $gluten_free);
-                if (!$stmt_recipe_tag->execute()) {
-                    throw new Exception("Execute failed for category: " . $stmt_recipe_tag->error);
+        if (isset($_POST["tags"]) && is_array($_POST["tags"]) && !empty($_POST["tags"])) {
+            foreach ($_POST["tags"] as $tag_id) {
+                $tag_id = intval(sanitize_input($tag_id));
+                if ($tag_id > 0) {  // Ensure tag_id is a positive integer
+                    // Verify that the tag exists in the tags table
+                    $check_tag_sql = "SELECT tag_id FROM tags WHERE tag_id = ?";
+                    $check_tag_stmt = $conn->prepare($check_tag_sql);
+                    $check_tag_stmt->bind_param("i", $tag_id);
+                    $check_tag_stmt->execute();
+                    $check_tag_result = $check_tag_stmt->get_result();
+
+                    if ($check_tag_result->num_rows > 0) {
+                        // Proceed with inserting the valid tag_id
+                        $stmt_recipe_tag->bind_param("iiiii", $recipe_id, $tag_id, $vegan, $vegetarian, $gluten_free);
+                        if (!$stmt_recipe_tag->execute()) {
+                            throw new Exception("Execute failed for tag: " . $stmt_recipe_tag->error);
+                        }
+                    } else {
+                        // The tag_id doesn't exist in the database
+                        echo "Warning: Tag ID $tag_id does not exist in the tags table.<br>";
+                    }
+                    $check_tag_stmt->close();
+                } else {
+                    // The tag_id is invalid (e.g., empty or non-integer)
+                    echo "Warning: Invalid tag ID $tag_id.<br>";
                 }
             }
+        } else {
+            echo "No tags were selected.<br>";
         }
-
         $stmt_recipe_tag->close();
 
-            // Commit transaction
-            $conn->commit();
-        } catch (Exception $e) {
-            // Rollback transaction on error
-            $conn->rollback();
-            }
+
+
+        // Commit transaction
+        $conn->commit();
+        $success = "Recipe added successfully!";
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        $conn->rollback();
+        $error = "Error: " . $e->getMessage();
+    }
 }
 
 // Close connection
@@ -181,6 +189,10 @@ $conn->close();
   <link rel="stylesheet" href="/assets/css/main.css">
   
   <script src="/assets/js/main.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <style>
         body {
@@ -251,6 +263,62 @@ $conn->close();
             flex: 1;
         }
   </style>
+  <style>
+    /* Customize the Select2 container */
+    .select2-container--default .select2-selection--multiple {
+        width: 100%;
+        padding: 0.5em;
+        padding-top: 1px;
+        border: none;
+        border-radius: 4px;
+        background-color: #242424;
+        color: #ffffff;
+        font-family: 'Space Mono', monospace;
+    }
+
+    /* Customize selected options (tags) inside the input */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #444444;
+        border: none;
+        border-radius: 2px;
+        color: #ffffff;
+        font-family: 'Space Mono', monospace;
+    }
+
+    /* Customize the dropdown (list of options) */
+    .select2-container--default .select2-dropdown {
+        background-color: #242424;
+        border: none;
+        border-radius: 4px;
+        color: #ffffff;
+        font-family: 'Space Mono', monospace;
+    }
+
+    /* Customize options in the dropdown */
+    .select2-container--default .select2-results__option {
+        color: #ffffff;
+        background-color: #242424;
+        padding: 0.5em;
+    }
+
+    /* Highlight on hover */
+    .select2-container--default .select2-results__option--highlighted {
+        background-color: #444444;
+        color: #ffffff;
+    }
+
+    /* Placeholder color */
+    .select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+        color: #ffffff;
+        opacity: 0.6;
+    }
+
+    /* Remove the default select2 arrow */
+    .select2-container--default .select2-selection--multiple .select2-selection__arrow {
+        display: none;
+    }
+</style>
+
 </head>
 
 <body>
@@ -313,6 +381,38 @@ $conn->close();
                 ?>
             </select>
         </div>
+
+        <!-- Tags -->
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <select id="tags" name="tags[]" multiple>
+                <?php
+                // Fetch tags from the database
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+
+                $sql_tag = "SELECT tag_id, tag_name FROM tags";
+                $result_tag = $conn->query($sql_tag);
+                if ($result_tag->num_rows > 0) {
+                    while ($row = $result_tag->fetch_assoc()) {
+                        echo "<option value='" . htmlspecialchars($row['tag_id']) . "'>" . htmlspecialchars($row['tag_name']) . "</option>";
+                    }
+                }
+                $conn->close();
+                ?>
+            </select>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $('#tags').select2({
+                    placeholder: "Search and select tags",
+                    width: '100%',
+                });
+            });
+        </script>
 
         <!-- Dietary Information -->
         <div class="form-group">
