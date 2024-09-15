@@ -358,10 +358,6 @@
 });
   </script>
 
-  <footer>
-    <p>© <script>document.write(new Date().getFullYear())</script> Euan Steven</p>
-  </footer>
-
 </body>
 
 </html>
