@@ -67,55 +67,6 @@
       </searchlabel>
     </div>
 
-    <div class="dropdown">
-      <button class="icon-button">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a19a9a"><path d="M440-120v-240h80v80h320v80H520v80h-80Zm-320-80v-80h240v80H120Zm160-160v-80H120v-80h160v-80h80v240h-80Zm160-80v-80h400v80H440Zm160-160v-240h80v80h160v80H680v80h-80Zm-480-80v-80h400v80H120Z"/></svg>
-        <div class="dropdown-content">
-          <span class="filteroption">Category
-              <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.97368 12.6L12.7895 0L20.6053 12.6H4.97368ZM20.6053 28C18.8289 28 17.3191 27.3875 16.0757 26.1625C14.8322 24.9375 14.2105 23.45 14.2105 21.7C14.2105 19.95 14.8322 18.4625 16.0757 17.2375C17.3191 16.0125 18.8289 15.4 20.6053 15.4C22.3816 15.4 23.8914 16.0125 25.1349 17.2375C26.3783 18.4625 27 19.95 27 21.7C27 23.45 26.3783 24.9375 25.1349 26.1625C23.8914 27.3875 22.3816 28 20.6053 28ZM0 27.3V16.1H11.3684V27.3H0ZM20.6053 25.2C21.6 25.2 22.4408 24.8617 23.1276 24.185C23.8145 23.5083 24.1579 22.68 24.1579 21.7C24.1579 20.72 23.8145 19.8917 23.1276 19.215C22.4408 18.5383 21.6 18.2 20.6053 18.2C19.6105 18.2 18.7697 18.5383 18.0829 19.215C17.3961 19.8917 17.0526 20.72 17.0526 21.7C17.0526 22.68 17.3961 23.5083 18.0829 24.185C18.7697 24.8617 19.6105 25.2 20.6053 25.2ZM2.84211 24.5H8.52632V18.9H2.84211V24.5ZM10.0184 9.8H15.5605L12.7895 5.39L10.0184 9.8Z" fill="#A19A9A"/>
-              </svg>
-          </span>
-          
-          <form class="categoryoptions" action="/action_page.php">
-            <label for="dinner">
-              <input type="checkbox" style="float: left;" id="Dinner" name="dinner" value="Dinner">
-              <div style="overflow: hidden; padding: 0px 0px 0px 5px;">Dinner</div>
-            </label><br>
-            <label for="breakfast">
-              <input type="checkbox" style="float: left;" id="Breakfast" name="breakfast" value="Breakfast">
-              <div style="overflow: hidden; padding: 0px 0px 0px 5px;">Breakfast</div>
-            </label><br>
-            <label for="dessert">
-              <input type="checkbox" style="float: left;" id="Dessert" name="dessert" value="Dessert">
-              <div style="overflow: hidden; padding: 0px 0px 0px 5px;">Dessert</div>
-            </label><br>
-          </form>
-
-          <span class="filteroption">Dietary
-              <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3.954 24.0453C2.71837 22.8094 1.75047 21.3813 1.05028 19.761C0.350094 18.1406 0 16.4654 0 14.7352C0 13.005 0.3295 11.2954 0.9885 9.60638C1.6475 7.91738 2.71837 6.33137 4.20112 4.84835C5.16216 3.88713 6.34974 3.06323 7.76384 2.37664C9.17794 1.69006 10.8529 1.14765 12.7887 0.749434C14.7245 0.351215 16.9349 0.11091 19.4199 0.0285197C21.9049 -0.0538705 24.685 0.0422514 27.7604 0.316885C27.98 3.22801 28.0487 5.90569 27.9663 8.34993C27.8839 10.7942 27.6574 12.9981 27.2867 14.9617C26.916 16.9254 26.3943 18.6418 25.7216 20.1111C25.0489 21.5804 24.2182 22.8094 23.2297 23.7981C21.7745 25.2537 20.2299 26.3179 18.5961 26.9907C16.9624 27.6636 15.2943 28 13.5919 28C11.8071 28 10.0635 27.6498 8.36106 26.9495C6.65864 26.2492 5.18962 25.2811 3.954 24.0453ZM8.567 23.3861C9.36329 23.853 10.1802 24.1895 11.0177 24.3954C11.8551 24.6014 12.7132 24.7044 13.5919 24.7044C14.855 24.7044 16.1043 24.4504 17.3399 23.9423C18.5756 23.4342 19.7563 22.6172 20.8821 21.4912C21.3763 20.9968 21.8774 20.3034 22.3854 19.4108C22.8934 18.5183 23.3327 17.3511 23.7034 15.9092C24.0741 14.4674 24.3555 12.7235 24.5477 10.6775C24.7399 8.63143 24.7674 6.19405 24.6301 3.36532C23.2847 3.3104 21.7676 3.2898 20.0789 3.30353C18.3902 3.31726 16.7084 3.44771 15.0334 3.69488C13.3585 3.94205 11.7659 4.34027 10.2557 4.88954C8.74548 5.43881 7.50985 6.19405 6.54881 7.15527C5.31319 8.39113 4.46198 9.61325 3.99519 10.8216C3.52839 12.03 3.295 13.1972 3.295 14.3232C3.295 15.9436 3.6039 17.3648 4.22172 18.5869C4.83953 19.809 5.38183 20.6673 5.84862 21.1616C7.00187 18.9645 8.52581 16.8567 10.4204 14.8382C12.3151 12.8196 14.5255 11.1649 17.0516 9.87415C15.0746 11.6043 13.3516 13.5611 11.8826 15.7445C10.4136 17.9278 9.30837 20.475 8.567 23.3861Z" fill="#A19A9A"/>
-              </svg>
-          </span>
-
-          <form class="categoryoptions" action="/action_page.php">
-            <label for="vegan">
-              <input type="checkbox" style="float: left;" id="Vegan" name="vegan" value="Vegan">
-              <div style="overflow: hidden; padding: 0px 0px 0px 5px;">Vegan</div>
-            </label><br>
-            <label for="vegatarian">
-              <input type="checkbox" style="float: left;" id="Vegatarian" name="vegatarian" value="Vegatarian">
-              <div style="overflow: hidden; padding: 0px 0px 0px 5px;">Vegatarian</div>
-            </label><br>
-            <label for="glutenfree">
-              <input type="checkbox" style="float: left;" id="GlutenFree" name="glutenfree" value="GlutenFree">
-              <div style="overflow: hidden; padding: 0px 0px 0px 5px;">Gluten Free</div>
-            </label><br>
-          </form>
-        </div>
-      </button>
-    </div>
-
   <div class="dropdown">
     <button class="icon-button">
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a19a9a"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/></svg>
@@ -402,8 +353,7 @@
                 currentOrder = currentOrder === 'asc' ? 'desc' : 'asc';
             } else {
                 currentOrder = 'asc';
-                currentSortBy = newSortBy;
-            }
+                currentSortBy = newSortBy;            }
 
             sortIndicator.setAttribute('data-order', currentOrder);
             sortIndicator.querySelector('.asc-arrow').style.fill = currentOrder === 'asc' ? '#A19A9A' : '#E0E0E0';

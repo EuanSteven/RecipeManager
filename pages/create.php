@@ -338,7 +338,7 @@ $conn->close();
                 <div class="ingredient-group">
                     <input type="text" name="ingredient_name[]" placeholder="Ingredient Name" required>
                     <input type="number" name="quantity[]" step="0.01" placeholder="Quantity" required>
-                    <input type="text" name="unit[]" placeholder="unit" required>
+                    <input type="text" name="unit[]" placeholder="Unit" required>
                 </div>
             </div>
             <button type="button" class="add-ingredient" onclick="addIngredient()">Add Another Ingredient</button>
