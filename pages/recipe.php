@@ -127,9 +127,14 @@ function getDietaryLabels($recipe) {
       </div>
       <div class="info-box">
         <div class="recipe-header">
-            <span class="category"><?php echo htmlspecialchars($recipe['category_name'] ?? ''); ?></span>
-            <span class="pipe">|</span>
-            <span class="dietary-info"><?php echo getDietaryLabels($recipe); ?></span>
+            <span class="category">
+              <?php 
+              echo htmlspecialchars($recipe['category_name'] ?? ''); 
+              if (!empty(getDietaryLabels($recipe))) {
+                  echo " | " . getDietaryLabels($recipe);
+              }
+              ?>
+            </span>
         </div>
         <h3 class="recipe-title"><a class="recipelink" href="/pages/recipes/pages/recipe<?php echo htmlspecialchars($recipe['recipe_id'] ?? ''); ?>.html"><?php echo htmlspecialchars($recipe['recipe_name'] ?? ''); ?></a></h3>
 
