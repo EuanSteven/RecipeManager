@@ -195,8 +195,9 @@
     </div>
 </div>
 
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const recipeList = document.querySelector('.recipe-list');
     const pagination = document.querySelector('.pagination');
@@ -347,8 +348,7 @@
     // Initial display
     displayRecipes();
 });
-  </script>
+</script>
 
 </body>
-
 </html>
