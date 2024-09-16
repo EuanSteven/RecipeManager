@@ -190,66 +190,7 @@ $conn->close();
             margin: 0;
             padding: 0;
         }
-        .recipe-create-form {
-            color: #a19a9a;
-            padding: 5%;
-            margin-left: 10%;
-            margin-right: 10%;
-            padding-top: 2%;
-        }
-        .recipe-create-form h2 {
-            color: #25b747;
-            margin-bottom: 1em;
-        }
-        .form-group {
-            margin-bottom: 1em;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5em;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 0.5em;
-            border: none;
-            border-radius: 4px;
-            background-color: #242424;
-            color: #ffffff;
-            font-family: 'Space Mono', monospace;
-        }
 
-        button[type="submit"] {
-            background-color: #25b747;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            padding: 0.5em 1em;
-            cursor: pointer;
-            font-family: 'Space Mono', monospace;
-            transition: background-color 0.3s ease;
-        }
-        button[type="submit"]:hover {
-            background-color: #1e9037;
-        }
-        .error {
-            color: #ff4d4d;
-            margin-bottom: 1em;
-        }
-        .success {
-            color: #25b747;
-            margin-bottom: 1em;
-        }
-        .add-ingredient, .add-media {
-            margin-bottom: 1em;
-        }
-        .ingredient-group, .media-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 0.5em;
-        }
-        .ingredient-group input, .media-group input {
-            flex: 1;
-        }
   </style>
 </head>
 
@@ -369,7 +310,6 @@ $conn->close();
     </form>
 </div>
 
-<!-- JavaScript to add more ingredients and media links -->
 <script>
     function addIngredient() {
         const ingredientsDiv = document.getElementById('ingredients');
