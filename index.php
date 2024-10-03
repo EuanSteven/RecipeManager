@@ -85,7 +85,7 @@ TODO:
   $conn = new mysqli($servername, $username, $password, $dbname);
 
   if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
+      die("Connection Failed: " . $conn->connect_error);
   }
 
   // Fetch recipes from database
@@ -160,7 +160,7 @@ TODO:
               <?php
           }
       } else {
-          echo "<p>No recipes found.</p>";
+          echo "<p>No Recipes Found.</p>";
       }
       $conn->close();
       ?>
