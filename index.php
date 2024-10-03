@@ -1,3 +1,14 @@
+<!--
+TODO:
+* HTML Table
+* CSS Media Queries
+* 'Succesfull!' message
+* Redirect to Thank You page
+* External Link
+* Validation
+-->
+
+
 <!doctype html>
 <html lang="en">
 <!-- Design by Euan Steven -->
@@ -41,9 +52,9 @@
   
   <div class="search-container">
     <div class="search">
-      <searchlabel>
-        <input type="text" id=searchInput class="searchTerm" placeholder="Search">
-      </searchlabel>
+        <label>
+            <input type="text" id="searchInput" class="searchTerm" placeholder="Search">
+        </label>
     </div>
 
   <div class="dropdown">
@@ -349,6 +360,10 @@ document.addEventListener('DOMContentLoaded', function() {
     displayRecipes();
 });
 </script>
+
+<footer>
+    <p>Recipe Manager</p>
+</footer>
 
 </body>
 </html>
