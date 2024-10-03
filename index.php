@@ -149,7 +149,7 @@
               <?php
           }
       } else {
-          echo "<p>No recipes found.</p>";
+          echo "<p>No Recipes Found.</p>";
       }
       $conn->close();
       ?>
