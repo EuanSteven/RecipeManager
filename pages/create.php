@@ -181,17 +181,6 @@ $conn->close();
   <link rel="stylesheet" href="/assets/css/main.css">
   
   <script src="/assets/js/main.js"></script>
-
-  <style>
-        body {
-            background-color: #111111;
-            color: #ffffff;
-            font-family: 'Space Mono', monospace;
-            margin: 0;
-            padding: 0;
-        }
-
-  </style>
 </head>
 
 <body>
