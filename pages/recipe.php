@@ -19,18 +19,16 @@ if ($conn->connect_error) {
 
 // Get recipe ID from URL parameter
 $recipe_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
 // Fetch recipe details
 $sql = "
 SELECT r.recipe_id, r.recipe_name, r.directions, rt.vegan, rt.vegetarian, rt.gluten_free, m.media_link, c.category_name, r.cooking_time, r.serving_size, n.kcal AS calories, n.protein, n.carbs, n.fat, n.sugar
 FROM recipes r
-LEFT JOIN recipe_tag rt ON r.recipe_id = rt.recipe_id
-LEFT JOIN media m ON r.recipe_id = m.recipe_id
-LEFT JOIN nutrition n ON r.recipe_id = n.recipe_id
+LEFT JOIN recipe_tag rt USING (recipe_id)
 LEFT JOIN categories c ON rt.category_id = c.category_id
+LEFT JOIN media m USING (recipe_id)
+LEFT JOIN nutrition n USING (recipe_id)
 WHERE r.recipe_id = ?
 ";
-
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $recipe_id);

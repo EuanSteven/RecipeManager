@@ -179,8 +179,6 @@ $conn->close();
   <link rel="apple-touch-icon" href="/assets/icons/icon.png">
 
   <link rel="stylesheet" href="/assets/css/main.css">
-  
-  <script src="/assets/js/main.js"></script>
 </head>
 
 <body>
