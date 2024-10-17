@@ -1,13 +1,12 @@
 <!--
 TODO:
 * HTML Table
-* CSS Media Queries
 * 'Succesfull!' message
 * Redirect to Thank You page
 * External Link
 * Validation
+* Search Icon
 -->
-
 
 <!doctype html>
 <html lang="en">
@@ -23,13 +22,11 @@ TODO:
 
   <meta property="og:title" content="Recipe Manager">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="/assets/images/covers/recipes_cover.jpg">
+  <meta property="og:image" content="/assets/img/covers/index.png">
   <meta property="og:description" content="Recipes">
   <meta property="og:locale" content="en_GB">
 
-  <link rel="icon" href="/assets/icons/favicon.ico sizes="any">
-  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/assets/icons/icon.png">
+  <link rel="icon" type="image/x-icon" href="/assets/img/icons/favicon.ico">
 
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>

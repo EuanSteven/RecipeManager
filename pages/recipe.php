@@ -92,9 +92,7 @@ function getDietaryLabels($recipe) {
   <meta property="og:description" content="Recipes">
   <meta property="og:locale" content="en_GB">
 
-  <link rel="icon" href="/assets/icons/favicon.ico" sizes="any">
-  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/assets/icons/icon.png">
+  <link rel="icon" type="image/x-icon" href="/assets/img/icons/favicon.ico">
 
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>
