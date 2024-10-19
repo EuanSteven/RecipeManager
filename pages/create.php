@@ -1,9 +1,4 @@
 <?php
-// Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Database connection details
 $servername = "localhost";
 $username = "root";
@@ -154,6 +149,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Close connection
 $conn->close();
+header("Location: successful.php?recipe=" . urlencode($recipe_name));
+exit();
 ?>
 
 <!doctype html>
@@ -182,6 +179,7 @@ $conn->close();
   <div class="intro">
     <h1>Recipe Manager</h1>
     <h2>// Create</h2>
+
     <div class="back-button">
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#A19a9a">
         <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>

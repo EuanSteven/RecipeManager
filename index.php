@@ -2,10 +2,8 @@
 TODO:
 * HTML Table
 * 'Succesfull!' message
-* Redirect to Thank You page
 * External Link
 * Validation
-* Search Icon
 -->
 
 <!doctype html>
@@ -31,7 +29,6 @@ TODO:
 </head>
 
 <body>
-
   <div class="intro">
     <h1>Recipe Manager</h1>
     <h2>// Home Page</h2>
@@ -48,29 +45,30 @@ TODO:
   
   <div class="search-container">
     <div class="search">
-        <label>
+        <div class="searchlabel">
             <input type="text" id="searchInput" class="searchTerm" placeholder="Search">
-        </label>
+        </div>
     </div>
 
-  <div class="dropdown">
-    <button class="icon-button">
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a19a9a"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/></svg>
-      <div class="dropdown-content">
-        <span class="sortby">Sort By
-          <svg width="10" height="10" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="sort-indicator" data-order="asc">
-            <path d="M5.25 2.86875L1.05 7.06875L0 6L6 0L12 6L10.95 7.06875L6.75 2.86875V12L5.25 12L5.25 2.86875Z" fill="#A19A9A" class="asc-arrow"/>
-            <path d="M11.25 19.1313L7.05 14.9313L6 16L12 22L18 16L16.95 14.9312L12.75 19.1313L12.75 10H11.25L11.25 19.1313Z" fill="#A19A9A" class="desc-arrow"/>
-          </svg>
-        </span>
-        <span class="option" data-sort="name"><a href="#">Recipe Name</a></span>
-        <span class="option" data-sort="time"><a href="#">Cooking Time</a></span>
-        <span class="option" data-sort="size"><a href="#">Serving Size</a></span>
-      </div>
-    </button>
-  </div>
+    <div class="dropdown">
+        <button class="icon-button">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a19a9a"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/></svg>
+        <div class="dropdown-content">
+            <span class="sortby">Sort By
+            <svg width="10" height="10" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="sort-indicator" data-order="asc">
+                <path d="M5.25 2.86875L1.05 7.06875L0 6L6 0L12 6L10.95 7.06875L6.75 2.86875V12L5.25 12L5.25 2.86875Z" fill="#A19A9A" class="asc-arrow"/>
+                <path d="M11.25 19.1313L7.05 14.9313L6 16L12 22L18 16L16.95 14.9312L12.75 19.1313L12.75 10H11.25L11.25 19.1313Z" fill="#A19A9A" class="desc-arrow"/>
+            </svg>
+            </span>
+            <span class="option" data-sort="name"><a href="#">Recipe Name</a></span>
+            <span class="option" data-sort="time"><a href="#">Cooking Time</a></span>
+            <span class="option" data-sort="size"><a href="#">Serving Size</a></span>
+        </div>
+        </button>
+    </div>
 
   </div>
+
   <?php
   // Database connection
   $servername = "localhost";
