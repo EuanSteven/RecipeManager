@@ -27,7 +27,6 @@ TODO:
   <meta property="og:locale" content="en_GB">
 
   <link rel="icon" type="image/x-icon" href="/assets/img/icons/favicon.ico">
-
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 
