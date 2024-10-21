@@ -783,7 +783,7 @@ button[type="submit"]:hover {
 }
 
 /* ========== */
-/* recipe.php */
+/* thankyou.php */
 /* ========== */
 
 .success-container {
@@ -820,3 +820,5 @@ button[type="submit"]:hover {
   font-weight: bold;
   color: #ffffff;
 }
+
+/* Round Table Corners + Media Queries */
