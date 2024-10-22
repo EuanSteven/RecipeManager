@@ -99,7 +99,7 @@ function getDietaryLabels($recipe) {
         <h2>Ingredients</h2>
         <ul>
             <?php foreach ($ingredients as $ingredient): ?>
-                <li><?php echo htmlspecialchars($ingredient['quantity'] ?? '') . "" . htmlspecialchars($ingredient['unit'] ?? '') . " " . htmlspecialchars($ingredient['ingredient_name'] ?? ''); ?></li>
+                <li><?php echo htmlspecialchars($ingredient['quantity'] ?? '') . " " . htmlspecialchars($ingredient['unit'] ?? '') . " " . htmlspecialchars($ingredient['ingredient_name'] ?? ''); ?></li>
             <?php endforeach; ?>
         </ul>
         </div>

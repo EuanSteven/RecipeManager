@@ -141,6 +141,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Commit transaction
             $conn->commit();
+            header("Location: thankyou.php?id=" . urlencode($recipe_id) . "&recipe=" . urlencode($recipe_name));
+            exit();
         } catch (Exception $e) {
             // Rollback transaction on error
             $conn->rollback();
@@ -149,8 +151,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Close connection
 $conn->close();
-header("Location: successful.php?recipe=" . urlencode($recipe_name));
-exit();
 ?>
 
 <!doctype html>
