@@ -70,7 +70,9 @@
 
     <div class="dropdown">
         <button class="icon-button">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a19a9a"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#a19a9a">
+            <path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/>
+        </svg>
         <div class="dropdown-content">
             <span class="sortby">Sort By
             <svg width="10" height="10" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="sort-indicator" data-order="asc">
