@@ -1,9 +1,10 @@
 <?php
     // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "password1";
-    $dbname = "prod";
+    $servername = $_ENV['SERVERNAME'];
+    $username = $_ENV['USERNAME'];
+    $password = $_ENV['PASSWORD'];
+    $dbname = $_ENV['DBNAME'];
+    $port = $_ENV['PORT'];
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
