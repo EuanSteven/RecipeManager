@@ -1,3 +1,29 @@
+<?php
+  // Database connection
+  $servername = $_ENV['SERVERNAME'];
+  $username = $_ENV['USERNAME'];
+  $password = $_ENV['PASSWORD'];
+  $dbname = $_ENV['DBNAME'];
+  $port = $_ENV['PORT'];
+
+  $conn = new mysqli($servername, $username, $password, $dbname);
+
+  if ($conn->connect_error) {
+      die("Connection Failed: " . $conn->connect_error);
+  }
+
+  // Fetch recipes from database
+  $sql = "
+  SELECT r.recipe_id, r.recipe_name, r.cooking_time, r.serving_size, 
+        c.category_name, rt.vegan, rt.vegetarian, rt.gluten_free, m.media_link
+  FROM recipes r
+  LEFT JOIN media m ON r.recipe_id = m.recipe_id
+  LEFT JOIN recipe_tag rt ON r.recipe_id = rt.recipe_id
+  LEFT JOIN categories c ON rt.category_id = c.category_id
+  ";
+  $result = $conn->query($sql);
+?>
+
 <!doctype html>
 <html lang="en">
 <!-- Design by Euan Steven -->
@@ -58,34 +84,7 @@
         </div>
         </button>
     </div>
-
   </div>
-
-  <?php
-  // Database connection
-  $servername = $_ENV['SERVERNAME'];
-  $username = $_ENV['USERNAME'];
-  $password = $_ENV['PASSWORD'];
-  $dbname = $_ENV['DBNAME'];
-  $port = $_ENV['PORT'];
-
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  if ($conn->connect_error) {
-      die("Connection Failed: " . $conn->connect_error);
-  }
-
-  // Fetch recipes from database
-  $sql = "
-  SELECT r.recipe_id, r.recipe_name, r.cooking_time, r.serving_size, 
-        c.category_name, rt.vegan, rt.vegetarian, rt.gluten_free, m.media_link
-  FROM recipes r
-  LEFT JOIN media m ON r.recipe_id = m.recipe_id
-  LEFT JOIN recipe_tag rt ON r.recipe_id = rt.recipe_id
-  LEFT JOIN categories c ON rt.category_id = c.category_id
-  ";
-  $result = $conn->query($sql);
-  ?>
 
   <div class="recipe-list">
       <?php
@@ -194,7 +193,6 @@
 </div>
 
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     const recipeList = document.querySelector('.recipe-list');
@@ -347,10 +345,5 @@ document.addEventListener('DOMContentLoaded', function() {
     displayRecipes();
 });
 </script>
-
-<footer>
-    <p>Recipe Manager</p>
-</footer>
-
 </body>
 </html>
