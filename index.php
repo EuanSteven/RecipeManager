@@ -1,27 +1,29 @@
 <?php
-  // Database connection
-  $servername = $_ENV['SERVERNAME'];
-  $username = $_ENV['USERNAME'];
-  $password = $_ENV['PASSWORD'];
-  $dbname = $_ENV['DBNAME'];
-  $port = $_ENV['PORT'];
+    // Fetch Database Connection Variables from .env
+    $servername = $_ENV['SERVERNAME'];
+    $username = $_ENV['USERNAME'];
+    $password = $_ENV['PASSWORD'];
+    $dbname = $_ENV['DBNAME'];
+    $port = $_ENV['PORT'];
+    
+    // Start Connection to Database
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    // If Connection Fails, Display Error Message
+    if ($conn->connect_error) {
+        die("Connection Failed: " . $conn->connect_error);
+    }
 
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  if ($conn->connect_error) {
-      die("Connection Failed: " . $conn->connect_error);
-  }
-
-  // Fetch recipes from database
-  $sql = "
-  SELECT r.recipe_id, r.recipe_name, r.cooking_time, r.serving_size, 
-        c.category_name, rt.vegan, rt.vegetarian, rt.gluten_free, m.media_link
-  FROM recipes r
-  LEFT JOIN media m ON r.recipe_id = m.recipe_id
-  LEFT JOIN recipe_tag rt ON r.recipe_id = rt.recipe_id
-  LEFT JOIN categories c ON rt.category_id = c.category_id
-  ";
-  $result = $conn->query($sql);
+    // Query to Fetch Recipe Data
+    $sql = "
+    SELECT r.recipe_id, r.recipe_name, r.cooking_time, r.serving_size, 
+            c.category_name, rt.vegan, rt.vegetarian, rt.gluten_free, m.media_link
+    FROM recipes r
+    LEFT JOIN media m ON r.recipe_id = m.recipe_id
+    LEFT JOIN recipe_tag rt ON r.recipe_id = rt.recipe_id
+    LEFT JOIN categories c ON rt.category_id = c.category_id
+    ";
+    $result = $conn->query($sql);
 ?>
 
 <!doctype html>

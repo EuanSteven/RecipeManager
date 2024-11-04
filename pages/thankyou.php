@@ -1,22 +1,24 @@
 <?php
-    // Database connection
+    // Fetch Database Connection Variables from .env
     $servername = $_ENV['SERVERNAME'];
     $username = $_ENV['USERNAME'];
     $password = $_ENV['PASSWORD'];
     $dbname = $_ENV['DBNAME'];
     $port = $_ENV['PORT'];
 
+    // Start Connection to Database
     $conn = new mysqli($servername, $username, $password, $dbname);
 
+    // If Connection Fails, Display Error Message
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Get recipe ID from URL parameter
+    // 
     $recipe_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     $recipe_name = isset($_GET['recipe']) ? htmlspecialchars($_GET['recipe']) : 'your recipe';
     
-    // Fetch recipe name
+    
     $sql = "SELECT recipe_name FROM recipes WHERE recipe_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $recipe_id);
